@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="_not_found">"%s" tidak ditemukan!</string>
+    <string name="_km_tracked">%.3f km tercatat</string>
+    <string name="about">Tentang KIRI</string>
+    <string name="about_kiri_long">&lt;p&gt;KIRI Transport Publik Pintar adalah aplikasi yang membantu Anda menjelajah Indonesia menggunakan transportasi publik.&lt;/p&gt; &lt;p&gt;Aplikasi ini menggunakan beberapa jasa pihak ketiga: &lt;ul&gt;&lt;li&gt;KIRI API (&lt;a href="https://dev.kiri.travel"&gt;https://dev.kiri.travel&lt;/a&gt;)&lt;/li&gt;&lt;li&gt;Data dikoleksi dari &lt;a href="https://angkot.web.id"&gt;https://angkot.web.id&lt;/a&gt; (lisensi ODBL).&lt;/li&gt;&lt;li&gt;Pencarian tempat oleh Google Place Search&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;&lt;p&gt;Untuk informasi lebih lanjut, kunjungi &lt;a href="http://kiri.travel"&gt;http://kiri.travel&lt;/a&gt;&lt;/p&gt;</string>
+    <string name="app_name">Transport Publik</string>
+    <string name="autodetect">Lokasi saya</string>
+    <string name="city">Kota</string>
+    <string name="connection_error">Gangguan koneksi</string>
+    <string name="directions">Petunjuk</string>
+    <string name="example_start">Museum Geologi, Bandung</string>
+    <string name="example_finish">Monumen Nasional, Jakarta</string>
+    <string name="find_it">Cari!</string>
+    <string name="fill_both_textboxes">Isi kedua lokasi!</string>
+    <string name="from_">Dari:</string>
+    <string name="from___">Dari&#8230;</string>
+    <string name="from_here">Dari sini</string>
+    <string name="history">Histori</string>
+    <string name="iso639code">id</string>
+    <string name="itracked">Saya menggunakan transportasi publik sejauh %.3f km! Catat jarak Anda di https://play.google.com/store/apps/details?id=travel.kiri.smarttransportapp</string>
+    <string name="knowmore">Lebih lanjut tentang app ini</string>
+    <string name="my_location">Lokasi saya</string>
+    <string name="next">Berikut</string>
+    <string name="na">-</string>
+    <string name="no">Tidak</string>
+    <string name="no_data_in_history">Tidak ada pencarian sebelumnya</string>
+    <string name="ok">Oke</string>
+    <string name="gps_not_ready">Mohon tunggu sampai lokasi ditemukan</string>
+    <string name="kirilogo">Logo KIRI</string>
+    <string name="pay_subscription">Beri donasi dan dapatkan 1 tahun bebas iklan!</string>
+    <string name="pick_location">Pilih Lokasi</string>
+    <string name="please_wait">Mohon tunggu&#8230;</string>
+    <string name="previous">Sebelum</string>
+    <string name="purchasefail">Transaksi gagal: %s</string>
+    <string name="route_from_x_to_y">Dari %1$s ke %2$s (%3$s)</string>
+    <string name="route_not_found">Rute tidak ditemukan</string>
+    <string name="select_from_map">Pilih dari peta</string>
+    <string name="selected_on_map">Dipilih dari peta</string>
+    <string name="settings">Pengaturan</string>
+    <string name="share_to_friend">Bagikan ke teman Anda!</string>
+    <string name="step">Langkah %d</string>
+    <string name="step_icon">Gambar langkah</string>
+    <string name="stop_navigation_">Anda ingin menghentikan navigasi?</string>
+    <string name="subscription">Langganan</string>
+    <string name="subscription_active">Aktif sampai %s. Trims!</string>
+    <string name="subscription_expired">Maaf, langganan habis. Silahkan berlangganan lagi dari menu Pengaturan.</string>
+    <string name="thanks_for_subscribing">Terima kasih banyak telah berlangganan! Uang tersebut akan digunakan untuk pengembangan lebih lanjut. Sementara itu, aplikasi ada akan bebas iklan selama setahun.</string>
+    <string name="to_">Ke:</string>
+    <string name="to___">Ke&#8230;</string>
+    <string name="_to_">&#160;ke&#160;</string>
+    <string name="to_here">Ke sini</string>
+    <string name="yes">Ya</string>
+    <string name="you_are_in">Anda berada di %s</string>
+    <string name="you_have_reached">Anda telah sampai pada tujuan.</string>
+    <string name="you_have_subscribed">Tidak dapat berlangganan. Tunggu sampai langganan habis sebelum berlangganan yang baru.</string>
+    <string name="speech_on">Suara Hidup</string>
+    <string name="speech_off">Suara Mati</string>
+</resources>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="_not_found">"%s" not found!</string>
+    <string name="_km_tracked">%.3f km tracked</string>
+    <string name="about">About KIRI</string>
+    <string name="about_kiri_long">&lt;p&gt;KIRI Smart Public Transport is an app to help you navigate Indonesia using public transport.&lt;/p&gt; &lt;p&gt;This app uses the following external services: &lt;ul&gt;&lt;li&gt;KIRI API service (&lt;a href="https://dev.kiri.travel"&gt;https://dev.kiri.travel&lt;/a&gt;)&lt;/li&gt;&lt;li&gt;Data collected from &lt;a href="https://angkot.web.id"&gt;https://angkot.web.id&lt;/a&gt; (licensed under ODBL).&lt;/li&gt;&lt;li&gt;Place query from Google Place Search&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;&lt;p&gt;For more information, please visit &lt;a href="http://kiri.travel"&gt;http://kiri.travel&lt;/a&gt;&lt;/p&gt;</string>
+    <string name="app_name">Public Transport</string>
+    <string name="autodetect">Auto-detect</string>
+    <string name="city">City</string>
+    <string name="connection_error">Connection error</string>
+    <string name="directions">Directions</string>
+    <string name="example_start">Museum Geologi, Bandung</string>
+    <string name="example_finish">Monumen Nasional, Jakarta</string>
+    <string name="find_it">Find it!</string>
+    <string name="fill_both_textboxes">Fill both textboxes!</string>
+    <string name="from_">From:</string>
+    <string name="from___">From&#8230;</string>
+    <string name="from_here">From here</string>
+    <string name="history">Recent</string>
+    <string name="iso639code">en</string>
+    <string name="itracked">I tracked %.3f km using public transport! Track yours at https://play.google.com/store/apps/details?id=travel.kiri.smarttransportapp</string>
+    <string name="knowmore">Know more about this app</string>
+    <string name="my_location">My Location</string>
+    <string name="next">Next</string>
+    <string name="na">N.A.</string>
+    <string name="no">No</string>
+    <string name="no_data_in_history">No recent searches</string>
+    <string name="ok">OK</string>
+    <string name="gps_not_ready">Please wait until location is determined</string>
+    <string name="kirilogo">KIRI Logo</string>
+    <string name="pay_subscription">Donate and get 1 year ad free!</string>
+    <string name="pick_location">Pick Location</string>
+    <string name="please_wait">Please wait&#8230;</string>
+    <string name="previous">Previous</string>
+    <string name="purchasefail">Purchase failed: %s</string>
+    <string name="route_from_x_to_y">From %1$s to %2$s (%3$s)</string>
+    <string name="route_not_found">Route not found</string>
+    <string name="select_from_map">Select from map</string>
+    <string name="selected_on_map">Selected on map</string>
+    <string name="settings">Settings</string>
+    <string name="share_to_friend">Share it to your friends!</string>
+    <string name="step">Step %d</string>
+    <string name="step_icon">Step Icon</string>
+    <string name="stop_navigation_">Do you want to stop navigation?</string>
+    <string name="subscription">Subscription</string>
+    <string name="subscription_active">Active until %s. Thanks!</string>
+    <string name="subscription_expired">Sorry, your subscription is expired. Please subscribe again from the Settings menu.</string>
+    <string name="thanks_for_subscribing">Thanks a million for subscribing! The money goes for further development of KIRI. Meanwhile, your app will now be ad-free for one year.</string>
+    <string name="to_">To:</string>
+    <string name="to___">To&#8230;</string>
+    <string name="_to_">&#160;to&#160;</string>
+    <string name="to_here">To here</string>
+    <string name="yes">Yes</string>
+    <string name="you_are_in">You are in %s</string>
+    <string name="you_have_reached">You have reached your destination.</string>
+    <string name="you_have_subscribed">Can\'t subscribe. Please wait until subscription is expired before subscribing again.</string>
+    <string name="speech_on">Speech On</string>
+    <string name="speech_off">Speech Off</string>
+</resources>

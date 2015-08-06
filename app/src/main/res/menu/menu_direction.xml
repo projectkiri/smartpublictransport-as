@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
+
+    <!-- <item -->
+    <!-- android:id="@+id/menu_togglemap" -->
+    <!-- android:icon="@drawable/ic_action_view_as_list" -->
+    <!-- android:showAsAction="ifRoom" -->
+    <!-- android:title="@string/switchmaplist"/> -->
+    <item
+        android:id="@+id/menu_volume_on"
+        android:icon="@drawable/ic_action_volume_on"
+        android:orderInCategory="100"
+        android:title="@string/speech_on"
+        app:showAsAction="always|withText"/>
+    <item
+        android:id="@+id/menu_volume_off"
+        android:icon="@drawable/ic_action_volume_muted"
+        android:orderInCategory="100"
+        android:title="@string/speech_off"
+        app:showAsAction="always|withText"/>
+
+</menu>

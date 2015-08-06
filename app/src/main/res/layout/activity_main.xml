@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="10dip" >
+
+    <ImageView
+        android:id="@+id/logoImageView"
+        android:layout_width="200dip"
+        android:layout_height="100dip"
+        android:layout_gravity="center"
+        android:contentDescription="@string/kirilogo"
+        android:src="@drawable/logo" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent" >
+
+        <TextView
+            android:id="@+id/fromTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="@string/from_"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/fromEditText"
+            android:layout_width="fill_parent"
+            android:layout_height="48dip"
+            android:layout_below="@+id/fromTextView"
+            android:layout_toLeftOf="@+id/imageButtonGpsFrom"
+            android:hint="@string/example_start"
+            android:inputType="textNoSuggestions|textPostalAddress|textCapWords"
+            android:singleLine="true" >
+        </EditText>
+
+        <ImageButton
+            android:id="@+id/imageButtonGpsFrom"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
+            android:layout_alignTop="@+id/fromEditText"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@+id/imageButtonMapPointFrom"
+            android:background="@drawable/selector_bg_button_white"
+            android:contentDescription="@string/my_location"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_location" />
+
+        <ImageButton
+            android:id="@+id/imageButtonMapPointFrom"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/fromEditText"
+            android:background="@drawable/selector_bg_button_white"
+            android:contentDescription="@string/select_from_map"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_action_map" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp" >
+
+        <TextView
+            android:id="@+id/toTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="@string/to_"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/toEditText"
+            android:layout_width="fill_parent"
+            android:layout_height="48dip"
+            android:layout_below="@+id/toTextView"
+            android:layout_toLeftOf="@+id/imageButtonGpsTo"
+            android:hint="@string/example_finish"
+            android:inputType="textNoSuggestions|textPostalAddress|textCapWords"
+            android:singleLine="true" >
+        </EditText>
+
+        <ImageButton
+            android:id="@+id/imageButtonGpsTo"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
+            android:layout_alignTop="@+id/toEditText"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@+id/imageButtonMapPointTo"
+            android:background="@drawable/selector_bg_button_white"
+            android:contentDescription="@string/my_location"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_location" />
+
+        <ImageButton
+            android:id="@+id/imageButtonMapPointTo"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/toEditText"
+            android:background="@drawable/selector_bg_button_white"
+            android:contentDescription="@string/select_from_map"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_action_map" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/regionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/you_are_in"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/findButton"
+        style="@style/ButtonBlue"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/find_it" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="20dp" >
+
+        <TextView
+            android:id="@+id/btn_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_action_time"
+            android:gravity="center"
+            android:text="@string/history"
+            android:textColor="@color/selector_text_color"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="1dp" />
+
+        <TextView
+            android:id="@+id/btn_settings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_action_settings"
+            android:gravity="center"
+            android:text="@string/settings"
+            android:textColor="@color/selector_text_color"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+</LinearLayout>

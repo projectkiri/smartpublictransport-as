@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF"
+    android:orientation="vertical" >
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/admob"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/admob_id" />
+
+    <travel.kiri.smarttransportapp.view.SlidingUpPanelLayout
+        android:id="@+id/sliding_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        app:dragView="@+id/tv_selected_step"
+        app:overlay="true"
+        app:panelHeight="100dp"
+        app:paralaxOffset="10dp"
+        app:shadowHeight="4dp" >
+
+        <RelativeLayout
+            android:id="@+id/mapview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible" >
+
+            <fragment
+                android:id="@+id/mapfragment"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                class="com.google.android.gms.maps.SupportMapFragment" />
+
+            <LinearLayout
+                android:id="@+id/layout_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:orientation="horizontal" >
+
+                <ImageButton
+                    android:id="@+id/imageButtonPrevious"
+                    android:layout_width="40dip"
+                    android:layout_height="40dip"
+                    android:background="@drawable/selector_bg_button_white"
+                    android:contentDescription="@string/previous"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_prev" />
+
+                <View
+                    android:layout_width="10dp"
+                    android:layout_height="1dp" />
+
+                <ImageButton
+                    android:id="@+id/imageButtonNext"
+                    android:layout_width="40dip"
+                    android:layout_height="40dip"
+                    android:background="@drawable/selector_bg_button_white"
+                    android:contentDescription="@string/next"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_next" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#cFFF"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tv_selected_step"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#eFFF"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center_vertical"
+                android:minHeight="60dp"
+                android:padding="10dp"
+                android:text="@string/please_wait"
+                android:textColor="#000"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#666" />
+
+            <ListView
+                android:id="@+id/steplistview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:choiceMode="singleChoice"
+                android:clickable="true" >
+            </ListView>
+        </LinearLayout>
+    </travel.kiri.smarttransportapp.view.SlidingUpPanelLayout>
+
+</LinearLayout>
