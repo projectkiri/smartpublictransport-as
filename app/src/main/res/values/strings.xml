@@ -28,11 +28,11 @@
     <string name="ok">OK</string>
     <string name="gps_not_ready">Please wait until location is determined</string>
     <string name="kirilogo">KIRI Logo</string>
-    <string name="pay_subscription">Donate and get 1 year ad free!</string>
     <string name="pick_location">Pick Location</string>
     <string name="please_wait">Please wait&#8230;</string>
     <string name="previous">Previous</string>
     <string name="purchasefail">Purchase failed: %s</string>
+    <string name="purchasena">Sorry, purchase of new subscription is no longer available.</string>
     <string name="route_from_x_to_y">From %1$s to %2$s (%3$s)</string>
     <string name="route_not_found">Route not found</string>
     <string name="select_from_map">Select from map</string>

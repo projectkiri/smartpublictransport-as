@@ -11,9 +11,9 @@ It is recommended to fork to a new Github repo before cloning into your computer
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="com.google.android.maps.v2.API_KEY"><!--TODO--></string>
-    <string name="KIRI_APIKEY"><!--TODO--></string>
-    <string name="admob_id">ca-app-pub-3985184399339873/8346110548</string>
+    <string name="com.google.android.maps.v2.API_KEY" translatable="false"><!--TODO--></string>
+    <string name="KIRI_APIKEY" translatable="false"><!--TODO--></string>
+    <string name="admob_id" translatable="false">ca-app-pub-3985184399339873/8346110548</string>
 </resources>
 ```
 

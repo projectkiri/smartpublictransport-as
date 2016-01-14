@@ -29,11 +29,11 @@
     <string name="ok">Oke</string>
     <string name="gps_not_ready">Mohon tunggu sampai lokasi ditemukan</string>
     <string name="kirilogo">Logo KIRI</string>
-    <string name="pay_subscription">Beri donasi dan dapatkan 1 tahun bebas iklan!</string>
     <string name="pick_location">Pilih Lokasi</string>
     <string name="please_wait">Mohon tunggu&#8230;</string>
     <string name="previous">Sebelum</string>
     <string name="purchasefail">Transaksi gagal: %s</string>
+    <string name="purchasena">Maaf, pembelian langganan saat ini sudah tidak tersedia.</string>
     <string name="route_from_x_to_y">Dari %1$s ke %2$s (%3$s)</string>
     <string name="route_not_found">Rute tidak ditemukan</string>
     <string name="select_from_map">Pilih dari peta</string>

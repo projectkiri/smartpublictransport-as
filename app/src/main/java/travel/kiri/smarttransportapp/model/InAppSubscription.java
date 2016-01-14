@@ -86,20 +86,6 @@ public class InAppSubscription {
 		return iabHelper;
 	}
 	
-	public void purchase1Year(Activity activity, final IabHelper.OnIabPurchaseFinishedListener listener) {
-		iabHelper.launchPurchaseFlow(activity, InAppSubscription.SKU_1YEAR, 100, new IabHelper.OnIabPurchaseFinishedListener() {
-			
-			@Override
-			public void onIabPurchaseFinished(IabResult result, Purchase info) {
-				if (result.isSuccess() && info != null) {
-					purchaseTime = info.getPurchaseTime();
-					savePurchaseTimeToStorage();
-				}
-				listener.onIabPurchaseFinished(result, info);	
-			}
-		});
-	}
-	
 	public void savePurchaseTimeToStorage() {
 		SharedPreferences saver = mainActivity.getPreferences(Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = saver.edit();
