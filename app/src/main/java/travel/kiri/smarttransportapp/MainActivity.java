@@ -7,10 +7,11 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
@@ -40,7 +41,7 @@ import travel.kiri.smarttransportapp.model.TextQueryPoint;
 import travel.kiri.smarttransportapp.model.protocol.CicaheumLedengProtocol;
 import travel.kiri.smarttransportapp.model.protocol.JSONResponseHandler;
 
-public class MainActivity extends ActionBarActivity implements OnClickListener,
+public class MainActivity extends AppCompatActivity implements OnClickListener,
 		ErrorReporter, OnCancelListener, DialogInterface.OnClickListener,
 		LocationListener {
 

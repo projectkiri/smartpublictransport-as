@@ -17,10 +17,7 @@ public class City {
 	
 	public static final City[] CITIES = {
 		new City(-6.91474f, 107.60981f, 17000, "bdo", "Bandung"),
-        new City(-6.38784f, 106.81779f, 15000, "depok", "Depok"),
 		new City(-6.21154f, 106.84517f, 15000, "cgk", "Jakarta"),
-		new City(-7.98129f, 112.63192f, 15000, "mlg", "Malang"),
-		new City(-7.27421f, 112.71908f, 15000, "sub", "Surabaya")
 	};
 
 	public static City getCityFromCode(String code) {
