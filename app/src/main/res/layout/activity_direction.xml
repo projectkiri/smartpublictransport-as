@@ -8,13 +8,6 @@
     android:background="#FFF"
     android:orientation="vertical" >
 
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/admob"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        ads:adSize="BANNER"
-        ads:adUnitId="@string/admob_id" />
-
     <travel.kiri.smarttransportapp.view.SlidingUpPanelLayout
         android:id="@+id/sliding_layout"
         android:layout_width="match_parent"

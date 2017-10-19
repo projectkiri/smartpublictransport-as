@@ -31,8 +31,7 @@
     <string name="pick_location">Pick Location</string>
     <string name="please_wait">Please wait&#8230;</string>
     <string name="previous">Previous</string>
-    <string name="purchasefail">Purchase failed: %s</string>
-    <string name="purchasena">Sorry, purchase of new subscription is no longer available.</string>
+    <string name="purchasena">Purchase of subscription is no longer needed.</string>
     <string name="route_from_x_to_y">From %1$s to %2$s (%3$s)</string>
     <string name="route_not_found">Route not found</string>
     <string name="select_from_map">Select from map</string>
@@ -43,9 +42,6 @@
     <string name="step_icon">Step Icon</string>
     <string name="stop_navigation_">Do you want to stop navigation?</string>
     <string name="subscription">Subscription</string>
-    <string name="subscription_active">Active until %s. Thanks!</string>
-    <string name="subscription_expired">Sorry, your subscription is expired. Please subscribe again from the Settings menu.</string>
-    <string name="thanks_for_subscribing">Thanks a million for subscribing! The money goes for further development of KIRI. Meanwhile, your app will now be ad-free for one year.</string>
     <string name="to_">To:</string>
     <string name="to___">To&#8230;</string>
     <string name="_to_">&#160;to&#160;</string>
@@ -53,7 +49,6 @@
     <string name="yes">Yes</string>
     <string name="you_are_in">You are in %s</string>
     <string name="you_have_reached">You have reached your destination.</string>
-    <string name="you_have_subscribed">Can\'t subscribe. Please wait until subscription is expired before subscribing again.</string>
     <string name="speech_on">Speech On</string>
     <string name="speech_off">Speech Off</string>
 </resources>

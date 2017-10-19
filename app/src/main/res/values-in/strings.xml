@@ -32,8 +32,7 @@
     <string name="pick_location">Pilih Lokasi</string>
     <string name="please_wait">Mohon tunggu&#8230;</string>
     <string name="previous">Sebelum</string>
-    <string name="purchasefail">Transaksi gagal: %s</string>
-    <string name="purchasena">Maaf, pembelian langganan saat ini sudah tidak tersedia.</string>
+    <string name="purchasena">Pembelian langganan saat ini sudah tidak dibutuhkan.</string>
     <string name="route_from_x_to_y">Dari %1$s ke %2$s (%3$s)</string>
     <string name="route_not_found">Rute tidak ditemukan</string>
     <string name="select_from_map">Pilih dari peta</string>
@@ -44,9 +43,6 @@
     <string name="step_icon">Gambar langkah</string>
     <string name="stop_navigation_">Anda ingin menghentikan navigasi?</string>
     <string name="subscription">Langganan</string>
-    <string name="subscription_active">Aktif sampai %s. Trims!</string>
-    <string name="subscription_expired">Maaf, langganan habis. Silahkan berlangganan lagi dari menu Pengaturan.</string>
-    <string name="thanks_for_subscribing">Terima kasih banyak telah berlangganan! Uang tersebut akan digunakan untuk pengembangan lebih lanjut. Sementara itu, aplikasi ada akan bebas iklan selama setahun.</string>
     <string name="to_">Ke:</string>
     <string name="to___">Ke&#8230;</string>
     <string name="_to_">&#160;ke&#160;</string>
@@ -54,7 +50,6 @@
     <string name="yes">Ya</string>
     <string name="you_are_in">Anda berada di %s</string>
     <string name="you_have_reached">Anda telah sampai pada tujuan.</string>
-    <string name="you_have_subscribed">Tidak dapat berlangganan. Tunggu sampai langganan habis sebelum berlangganan yang baru.</string>
     <string name="speech_on">Suara Hidup</string>
     <string name="speech_off">Suara Mati</string>
 </resources>

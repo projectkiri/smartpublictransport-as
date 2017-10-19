@@ -30,7 +30,6 @@ import java.util.List;
 
 import travel.kiri.smarttransportapp.model.City;
 import travel.kiri.smarttransportapp.model.History;
-import travel.kiri.smarttransportapp.model.InAppSubscription;
 import travel.kiri.smarttransportapp.model.LocationFinder;
 import travel.kiri.smarttransportapp.model.MyLocationPoint;
 import travel.kiri.smarttransportapp.model.Place;
@@ -97,7 +96,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
 
 		locationFinder = LocationFinder.createInstance(this);
 		StatisticCounter.createInstance(this);
-		InAppSubscription.createInstance(this);
 		request = new CicaheumLedengProtocol(this, this);
 		adKeywords = new ArrayList<String>();
 
@@ -400,7 +398,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
 	protected void onDestroy() {
 		locationFinder.stopLocationDetection();
 		super.onDestroy();
-		InAppSubscription.getInstance(this).destroy();
 	}
 
 	/**

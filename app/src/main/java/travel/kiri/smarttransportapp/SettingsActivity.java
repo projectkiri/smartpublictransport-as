@@ -3,11 +3,7 @@ package travel.kiri.smarttransportapp;
 import java.text.DateFormat;
 import java.util.Locale;
 
-import travel.kiri.smarttransportapp.model.InAppSubscription;
 import travel.kiri.smarttransportapp.model.StatisticCounter;
-import travel.kiri.smarttransportapp.util.IabHelper;
-import travel.kiri.smarttransportapp.util.IabResult;
-import travel.kiri.smarttransportapp.util.Purchase;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -31,7 +27,6 @@ import android.widget.Toast;
 
 public class SettingsActivity extends AppCompatActivity implements OnItemClickListener, ErrorReporter {
 
-	InAppSubscription inappSubscription;
 	SettingsItemsAdapter adapter;
 
 	
@@ -48,8 +43,6 @@ public class SettingsActivity extends AppCompatActivity implements OnItemClickLi
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_settings);
 		
-		inappSubscription = InAppSubscription.getInstance(this);
-
 		// Construct settings items
 
 		ListView settingsListView = (ListView) findViewById(R.id.settingsListView);
@@ -103,14 +96,6 @@ public class SettingsActivity extends AppCompatActivity implements OnItemClickLi
 	}
 
 	@Override
-	public void onActivityResult (int requestCode, int resultCode, Intent data) {
-		// Pass activity result to iab helper.
-		if (!inappSubscription.iabHelper.handleActivityResult(requestCode, resultCode, data)) {
-			super.onActivityResult(requestCode, resultCode, data);
-		}
-	}
-
-	@Override
 	public void reportError(Object source, Throwable tr) {
 		Toast toast = Toast.makeText(this, tr.getMessage() == null ? tr.toString() : tr.getMessage(), Toast.LENGTH_LONG);
 		toast.show();
@@ -158,13 +143,7 @@ public class SettingsActivity extends AppCompatActivity implements OnItemClickLi
 		private String getDescription(int index) {
 			switch (index) {
 			case 0:
-				if (inappSubscription.isSubscriptionActive()) {
-					return String.format(
-							resources.getString(R.string.subscription_active),
-							DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locale.getDefault()).format(inappSubscription.getExpiryTime()));
-				} else {
-					return resources.getString(R.string.purchasena);
-				}
+				return resources.getString(R.string.purchasena);
 			case 1:
 				return resources.getString(R.string.knowmore);
 			case 2:

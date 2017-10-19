@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Locale;
 
 import travel.kiri.smarttransportapp.model.City;
-import travel.kiri.smarttransportapp.model.InAppSubscription;
 import travel.kiri.smarttransportapp.model.LocationFinder;
 import travel.kiri.smarttransportapp.model.LocationUtilities;
 import travel.kiri.smarttransportapp.model.Route;
@@ -123,16 +122,9 @@ public class DirectionActivity extends AppCompatActivity implements
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		List<String> adKeywords = null;
-		Location adLocation = null;
-		final boolean adFree = InAppSubscription.getInstance(this).isSubscriptionActive();
 
 		super.onCreate(savedInstanceState);
-		if (adFree) {
-			setContentView(R.layout.activity_direction_adfree);
-		} else {
-			setContentView(R.layout.activity_direction);
-		}
+		setContentView(R.layout.activity_direction);
 
 		setupActionBar();
 
@@ -147,7 +139,6 @@ public class DirectionActivity extends AppCompatActivity implements
 		String jsonRoute = intent.getStringExtra(EXTRA_ROUTE);
 		destination = intent.getStringExtra(EXTRA_DESTINATION);
 		from = intent.getStringExtra(EXTRA_FROM);
-		adKeywords = intent.getStringArrayListExtra(EXTRA_ADKEYWORDS);
         try {
             route = CicaheumLedengProtocol.parseFindRouteJSON(jsonRoute);
         } catch (RuntimeException re) {
@@ -299,9 +290,6 @@ public class DirectionActivity extends AppCompatActivity implements
 							});
 					// Set last point for ad location
 					LatLng lastPoint = step.path.get(step.path.size() - 1);
-					adLocation = LocationUtilities.createLocation(
-							(float) lastPoint.latitude,
-							(float) lastPoint.longitude);
 				}
 			}
 			// Set initial location: current location
@@ -322,19 +310,6 @@ public class DirectionActivity extends AppCompatActivity implements
 					map.setOnCameraChangeListener(null);
 				}
 			});
-		}
-
-		// Lastly, setup the admob
-		if (!adFree) {
-			AdView adView = (AdView) findViewById(R.id.admob);
-			AdRequest.Builder builder = new AdRequest.Builder();
-			for (String keyword : adKeywords) {
-				builder.addKeyword(keyword);
-			}
-			if (adLocation != null) {
-				builder.setLocation(adLocation);
-			}
-			adView.loadAd(builder.build());
 		}
 	}
 
