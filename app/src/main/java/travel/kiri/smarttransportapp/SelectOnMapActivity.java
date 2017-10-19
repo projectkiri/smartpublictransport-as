@@ -40,8 +40,6 @@ public class SelectOnMapActivity extends FragmentActivity implements
 	public static final String EXTRA_ENDPOINT_TYPE = "travel.kiri.smarttravelapp.intent.extra.endpointtype";
 	public static final String EXTRA_LOCATION = "travel.kiri.smarttravelapp.intent.extra.location";
 
-	public static final int MY_PERMISSIONS_REQUEST_LOCATION = 0;
-
 	private GoogleMap map;
 	private LocationFinder locationFinder;
 	private Resources resources;
@@ -82,12 +80,10 @@ public class SelectOnMapActivity extends FragmentActivity implements
 			public void onMapReady(GoogleMap googleMap) {
 				map = googleMap;
 				if (ContextCompat.checkSelfPermission(thisActivity,
-						Manifest.permission_group.LOCATION) == PackageManager.PERMISSION_GRANTED) {
+						Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
+						ContextCompat.checkSelfPermission(thisActivity,
+								Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 					map.setMyLocationEnabled(true);
-				} else {
-					ActivityCompat.requestPermissions(thisActivity,
-							new String[]{Manifest.permission_group.LOCATION},
-							MY_PERMISSIONS_REQUEST_LOCATION);
 				}
 				map.setLocationSource(locationFinder);
 				locationFinder.addLocationListener(thisActivity);
@@ -101,17 +97,6 @@ public class SelectOnMapActivity extends FragmentActivity implements
 				map.setOnMarkerClickListener(thisActivity);
 			}
 		});
-	}
-
-	@Override
-	public void onRequestPermissionsResult(int requestCode,
-										   String permissions[], int[] grantResults) {
-		if (requestCode == MY_PERMISSIONS_REQUEST_LOCATION) {
-			if (ContextCompat.checkSelfPermission(this,
-					Manifest.permission_group.LOCATION) == PackageManager.PERMISSION_GRANTED) {
-				map.setMyLocationEnabled(true);
-			}
-		}
 	}
 
 	public void onInfoWindowClick(Marker marker) {

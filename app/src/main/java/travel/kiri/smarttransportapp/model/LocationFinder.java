@@ -6,10 +6,12 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 
 import com.google.android.gms.maps.LocationSource;
 
@@ -52,6 +54,8 @@ public class LocationFinder implements LocationSource {
 	/** A Shared Preference instance to save last known location. */
 	protected final SharedPreferences locationSaver;
 
+	private Activity activity;
+
 	private class InternalListener implements LocationListener {
 
 		public void onLocationChanged(Location location) {
@@ -80,6 +84,7 @@ public class LocationFinder implements LocationSource {
 	}
 
 	protected LocationFinder(Activity activity) {
+		this.activity = activity;
 		this.locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
 		this.listeners = new LinkedList<LocationListener>();
 		this.googleMapListener = null;
@@ -135,11 +140,11 @@ public class LocationFinder implements LocationSource {
 	/**
 	 * Start detecting GPS Location and orientation.
 	 */
-	public void startLocationDetection() {
-		if (!listening) {
-			// Register the listener with the Location Manager to receive
-			// location
-			// updates
+	public boolean startLocationDetection() {
+
+		if (!listening && ContextCompat.checkSelfPermission(activity,
+				android.Manifest.permission_group.LOCATION) == PackageManager.PERMISSION_GRANTED) {
+			// Register the listener with the Location Manager to receive location updates
 			try {
 				locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, UPDATE_INTERVAL, 0,
 						internalListenerInstance);
@@ -154,6 +159,7 @@ public class LocationFinder implements LocationSource {
 			}
 			listening = true;
 		}
+		return listening;
 	}
 
 	public void stopLocationDetection() {
@@ -214,10 +220,15 @@ public class LocationFinder implements LocationSource {
 	}
 	
 	public Location getLastKnownLocation() {
-		Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-		if (lastKnownLocation == null) {
-			lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+		if (ContextCompat.checkSelfPermission(activity,
+				android.Manifest.permission_group.LOCATION) == PackageManager.PERMISSION_GRANTED) {
+			Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+			if (lastKnownLocation == null) {
+				lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+			}
+			return lastKnownLocation;
+		} else {
+			return null;
 		}
-		return lastKnownLocation;
 	}
 }

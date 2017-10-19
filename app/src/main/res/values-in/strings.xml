@@ -4,7 +4,7 @@
     <string name="_not_found">"%s" tidak ditemukan!</string>
     <string name="_km_tracked">%.3f km tercatat</string>
     <string name="about">Tentang KIRI</string>
-    <string name="about_kiri_long">&lt;p&gt;KIRI Transport Publik Pintar adalah aplikasi yang membantu Anda menjelajah Indonesia menggunakan transportasi publik.&lt;/p&gt; &lt;p&gt;Aplikasi ini menggunakan beberapa jasa pihak ketiga: &lt;ul&gt;&lt;li&gt;KIRI API (&lt;a href="https://dev.kiri.travel"&gt;https://dev.kiri.travel&lt;/a&gt;)&lt;/li&gt;&lt;li&gt;Data dikoleksi dari &lt;a href="https://angkot.web.id"&gt;https://angkot.web.id&lt;/a&gt; (lisensi ODBL).&lt;/li&gt;&lt;li&gt;Pencarian tempat oleh Google Place Search&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;&lt;p&gt;Untuk informasi lebih lanjut, kunjungi &lt;a href="http://kiri.travel"&gt;http://kiri.travel&lt;/a&gt;&lt;/p&gt;</string>
+    <string name="about_kiri_long">&lt;p&gt;KIRI Transport Publik Pintar adalah aplikasi yang membantu Anda menjelajah Indonesia menggunakan transportasi publik.&lt;/p&gt; &lt;p&gt;Aplikasi ini menggunakan beberapa jasa pihak ketiga: &lt;ul&gt;&lt;li&gt;KIRI API (&lt;a href="https://kiri.travel/dev"&gt;https://kiri.travel/dev&lt;/a&gt;)&lt;/li&gt;&lt;li&gt;Data dikoleksi dari &lt;a href="https://angkot.web.id"&gt;https://angkot.web.id&lt;/a&gt; (lisensi ODBL).&lt;/li&gt;&lt;li&gt;Pencarian tempat oleh Google Place Search&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;&lt;p&gt;Untuk informasi lebih lanjut, kunjungi &lt;a href="https://kiri.travel"&gt;https://kiri.travel&lt;/a&gt;&lt;/p&gt;</string>
     <string name="app_name">Transport Publik</string>
     <string name="autodetect">Lokasi saya</string>
     <string name="city">Kota</string>

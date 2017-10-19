@@ -3,7 +3,7 @@
     <string name="_not_found">"%s" not found!</string>
     <string name="_km_tracked">%.3f km tracked</string>
     <string name="about">About KIRI</string>
-    <string name="about_kiri_long">&lt;p&gt;KIRI Smart Public Transport is an app to help you navigate Indonesia using public transport.&lt;/p&gt; &lt;p&gt;This app uses the following external services: &lt;ul&gt;&lt;li&gt;KIRI API service (&lt;a href="https://dev.kiri.travel"&gt;https://dev.kiri.travel&lt;/a&gt;)&lt;/li&gt;&lt;li&gt;Data collected from &lt;a href="https://angkot.web.id"&gt;https://angkot.web.id&lt;/a&gt; (licensed under ODBL).&lt;/li&gt;&lt;li&gt;Place query from Google Place Search&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;&lt;p&gt;For more information, please visit &lt;a href="http://kiri.travel"&gt;http://kiri.travel&lt;/a&gt;&lt;/p&gt;</string>
+    <string name="about_kiri_long">&lt;p&gt;KIRI Smart Public Transport is an app to help you navigate Indonesia using public transport.&lt;/p&gt; &lt;p&gt;This app uses the following external services: &lt;ul&gt;&lt;li&gt;KIRI API service (&lt;a href="https://kiri.travel/dev"&gt;https://kiri.travel/dev&lt;/a&gt;)&lt;/li&gt;&lt;li&gt;Data collected from &lt;a href="https://angkot.web.id"&gt;https://angkot.web.id&lt;/a&gt; (licensed under ODBL).&lt;/li&gt;&lt;li&gt;Place query from Google Place Search&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;&lt;p&gt;For more information, please visit &lt;a href="https://kiri.travel"&gt;https://kiri.travel&lt;/a&gt;&lt;/p&gt;</string>
     <string name="app_name">Public Transport</string>
     <string name="autodetect">Auto-detect</string>
     <string name="city">City</string>

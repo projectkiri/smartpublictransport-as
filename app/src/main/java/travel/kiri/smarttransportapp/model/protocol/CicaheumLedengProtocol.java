@@ -50,8 +50,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class CicaheumLedengProtocol {
 	private final String apiKey;
 
-	private static final String KIRI_HOSTNAME = "http://kiri.travel";
-	private static final String KIRI_HANDLE_URL = KIRI_HOSTNAME + "/handle.php";
+	private static final String KIRI_HOSTNAME = "https://kiri.travel";
+	private static final String KIRI_HANDLE_URL = KIRI_HOSTNAME + "/api";
 	private static final String KIRI_ICONS_PATH = KIRI_HOSTNAME + "/images/means";
 	private static final String KIRI_BALOON_START_URL = KIRI_HOSTNAME + "/images/stepicon-walkstart.png";
 	private static final String KIRI_BALOON_FINISH_URL = KIRI_HOSTNAME + "/images/stepicon-finish.png";

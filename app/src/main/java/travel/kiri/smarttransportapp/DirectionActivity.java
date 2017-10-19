@@ -78,8 +78,6 @@ public class DirectionActivity extends AppCompatActivity implements
 	public static final String EXTRA_DESTINATION = "travel.kiri.smarttransportapp.intent.extra.destination";
 	public static final String EXTRA_FROM = "travel.kiri.smarttransportapp.intent.extra.from";
 
-	public static final int MY_PERMISSIONS_REQUEST_LOCATION = 0;
-
 	public static final float FOCUS_ZOOM = 16;
 
 	private static final int[] COLOR_VEHICLE = {0xFF339933, 0xFF8BB33B, 0xFF267373};
@@ -221,12 +219,10 @@ public class DirectionActivity extends AppCompatActivity implements
 			public void onMapReady(GoogleMap googleMap) {
 				map = googleMap;
 				if (ContextCompat.checkSelfPermission(thisActivity,
-						android.Manifest.permission_group.LOCATION) == PackageManager.PERMISSION_GRANTED) {
+						Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
+						ContextCompat.checkSelfPermission(thisActivity,
+						Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 					map.setMyLocationEnabled(true);
-				} else {
-					ActivityCompat.requestPermissions(thisActivity,
-							new String[]{android.Manifest.permission_group.LOCATION},
-							MY_PERMISSIONS_REQUEST_LOCATION);
 				}
 				map.setLocationSource(locationFinder);
 				map.setInfoWindowAdapter(new SimpleInfoWindowAdapter(
@@ -332,17 +328,6 @@ public class DirectionActivity extends AppCompatActivity implements
 			}
 		});
 
-	}
-
-	@Override
-	public void onRequestPermissionsResult(int requestCode,
-										   String permissions[], int[] grantResults) {
-		if (requestCode == MY_PERMISSIONS_REQUEST_LOCATION) {
-			if (ContextCompat.checkSelfPermission(this,
-					Manifest.permission_group.LOCATION) == PackageManager.PERMISSION_GRANTED) {
-				map.setMyLocationEnabled(true);
-			}
-		}
 	}
 
 	@Override

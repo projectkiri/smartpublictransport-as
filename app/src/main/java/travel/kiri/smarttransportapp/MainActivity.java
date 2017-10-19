@@ -1,5 +1,7 @@
 package travel.kiri.smarttransportapp;
 
+import android.*;
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -11,6 +13,8 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.Html;
@@ -49,6 +53,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
 	private static final String PREF_REGION = "region";
 	// related to ENDPONT
 	private static final String[] PREF_ENDPOINT_MYLOCATION = {"startMyLoc", "finishMyLoc" };
+
+	public static final int MY_PERMISSIONS_REQUEST_LOCATION = 0;
 
 	private CicaheumLedengProtocol request;
 
@@ -144,7 +150,11 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
 				}
 			};
 		}
-		locationFinder.startLocationDetection();
+		if (!locationFinder.startLocationDetection()) {
+			ActivityCompat.requestPermissions(this,
+					new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
+					MY_PERMISSIONS_REQUEST_LOCATION);
+		}
 		locationFinder.addLocationListener(this);
 		cityDetected = null;
 		citySelected = City.getCityFromCode(getStringPreference(PREF_REGION, null));
@@ -160,6 +170,17 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
 		} else if (getStringPreference(PREF_ENDPOINT_MYLOCATION[ENDPOINT_FINISH], Boolean.toString(false)).equals(Boolean.toString(true))) {
 			this.onClick(endpointMyLocationButton[ENDPOINT_FINISH]);
 			endpointEditText[ENDPOINT_START].requestFocus();
+		}
+	}
+
+	@Override
+	public void onRequestPermissionsResult(int requestCode,
+										   String permissions[], int[] grantResults) {
+		if (requestCode == MY_PERMISSIONS_REQUEST_LOCATION) {
+			if (ContextCompat.checkSelfPermission(this,
+					android.Manifest.permission_group.LOCATION) == PackageManager.PERMISSION_GRANTED) {
+				locationFinder.startLocationDetection();
+			}
 		}
 	}
 
