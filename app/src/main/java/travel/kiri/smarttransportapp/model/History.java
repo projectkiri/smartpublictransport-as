@@ -53,7 +53,7 @@ public class History extends SQLiteOpenHelper {
 	}
 
     public List<Item> getItems() {
-        final String[] columns = {"_id", "start, finish, adKeywords, result"};
+        final String[] columns = {"_id", "start, finish, result"};
         Cursor cursor = getReadableDatabase().query(TABLE_NAME, columns, null, null, null, null, "_id DESC", null);
         List<Item> items = new ArrayList<Item>(cursor.getCount());
         while (cursor.moveToNext()) {
@@ -76,7 +76,6 @@ public class History extends SQLiteOpenHelper {
             "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "start TEXT, " +
             "finish TEXT, " +
-            "adKeywords TEXT, " +
             "result TEXT)");
     }
 
@@ -89,13 +88,11 @@ public class History extends SQLiteOpenHelper {
     public static class Item {
 		public String start;
 		public String finish;
-		public List<String> adKeywords;
 		public String result;
-		public Item(String start, String finish, List<String> adKeywords, String result) {
+		public Item(String start, String finish, String result) {
 			super();
 			this.start = start;
 			this.finish = finish;
-			this.adKeywords = adKeywords;
 			this.result = result;
 		}
 		public Item() {
@@ -106,7 +103,6 @@ public class History extends SQLiteOpenHelper {
             ContentValues contentValues = new ContentValues(4);
             contentValues.put("start", start);
             contentValues.put("finish", finish);
-            contentValues.put("adKeywords", join(adKeywords));
             contentValues.put("result", result);
             return contentValues;
         }
@@ -115,8 +111,7 @@ public class History extends SQLiteOpenHelper {
             Item item = new Item();
             item.start = cursor.getString(1);
             item.finish = cursor.getString(2);
-            item.adKeywords = split(cursor.getString(3));
-            item.result = cursor.getString(4);
+            item.result = cursor.getString(3);
             return item;
         }
 

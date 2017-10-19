@@ -14,6 +14,9 @@ import travel.kiri.smarttransportapp.model.protocol.ImageResponseHandler;
 import travel.kiri.smarttransportapp.model.protocol.MarkerOptionsResponseHandler;
 import travel.kiri.smarttransportapp.view.SlidingUpPanelLayout;
 import travel.kiri.smarttransportapp.view.SlidingUpPanelLayout.PanelSlideListener;
+
+import android.*;
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -29,6 +32,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -70,9 +75,10 @@ public class DirectionActivity extends AppCompatActivity implements
 		OnMarkerClickListener, ErrorReporter, LocationListener {
 
 	public static final String EXTRA_ROUTE = "travel.kiri.smarttransportapp.intent.extra.route";
-	public static final String EXTRA_ADKEYWORDS = "travel.kiri.smarttransportapp.intent.extra.adkeywords";
 	public static final String EXTRA_DESTINATION = "travel.kiri.smarttransportapp.intent.extra.destination";
 	public static final String EXTRA_FROM = "travel.kiri.smarttransportapp.intent.extra.from";
+
+	public static final int MY_PERMISSIONS_REQUEST_LOCATION = 0;
 
 	public static final float FOCUS_ZOOM = 16;
 
@@ -214,7 +220,14 @@ public class DirectionActivity extends AppCompatActivity implements
 			@Override
 			public void onMapReady(GoogleMap googleMap) {
 				map = googleMap;
-				map.setMyLocationEnabled(true);
+				if (ContextCompat.checkSelfPermission(thisActivity,
+						android.Manifest.permission_group.LOCATION) == PackageManager.PERMISSION_GRANTED) {
+					map.setMyLocationEnabled(true);
+				} else {
+					ActivityCompat.requestPermissions(thisActivity,
+							new String[]{android.Manifest.permission_group.LOCATION},
+							MY_PERMISSIONS_REQUEST_LOCATION);
+				}
 				map.setLocationSource(locationFinder);
 				map.setInfoWindowAdapter(new SimpleInfoWindowAdapter(
 						LayoutInflater.from(thisActivity)));
@@ -307,17 +320,29 @@ public class DirectionActivity extends AppCompatActivity implements
 
 				allPointsBounds = LocationUtilities.detectBounds(allPoints);
 
-				map.setOnCameraChangeListener(new OnCameraChangeListener() {
+				map.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
 					@Override
-					public void onCameraChange(CameraPosition arg0) {
+					public void onCameraMove() {
 						selectedMarker = null;
 						focusOnSelectedMarker(null);
-						map.setOnCameraChangeListener(null);
+						map.setOnCameraMoveListener(null);
 					}
 				});
+
 			}
 		});
 
+	}
+
+	@Override
+	public void onRequestPermissionsResult(int requestCode,
+										   String permissions[], int[] grantResults) {
+		if (requestCode == MY_PERMISSIONS_REQUEST_LOCATION) {
+			if (ContextCompat.checkSelfPermission(this,
+					Manifest.permission_group.LOCATION) == PackageManager.PERMISSION_GRANTED) {
+				map.setMyLocationEnabled(true);
+			}
+		}
 	}
 
 	@Override
@@ -592,11 +617,10 @@ public class DirectionActivity extends AppCompatActivity implements
 	}
 
 	public static void startThisActivity(Context ctx, String from,
-			String destination, List<String> adKeyword, String jsonRoute) {
+			String destination, String jsonRoute) {
 		Intent intent = new Intent(ctx, DirectionActivity.class);
 		intent.putExtra(EXTRA_FROM, from);
 		intent.putExtra(EXTRA_DESTINATION, destination);
-		intent.putExtra(EXTRA_ADKEYWORDS, adKeyword instanceof ArrayList ? (ArrayList)adKeyword : new ArrayList(adKeyword));
 		intent.putExtra(EXTRA_ROUTE, jsonRoute);
 		ctx.startActivity(intent);
 	}

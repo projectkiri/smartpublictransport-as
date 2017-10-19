@@ -4,16 +4,23 @@ import travel.kiri.smarttransportapp.model.City;
 import travel.kiri.smarttransportapp.model.LocationFinder;
 import travel.kiri.smarttransportapp.model.LocationUtilities;
 import travel.kiri.smarttransportapp.model.protocol.CicaheumLedengProtocol;
+
+import android.*;
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.view.MenuItem;
 
+import com.google.android.gms.instantapps.PackageManagerCompat;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -32,6 +39,8 @@ public class SelectOnMapActivity extends FragmentActivity implements
 
 	public static final String EXTRA_ENDPOINT_TYPE = "travel.kiri.smarttravelapp.intent.extra.endpointtype";
 	public static final String EXTRA_LOCATION = "travel.kiri.smarttravelapp.intent.extra.location";
+
+	public static final int MY_PERMISSIONS_REQUEST_LOCATION = 0;
 
 	private GoogleMap map;
 	private LocationFinder locationFinder;
@@ -72,7 +81,14 @@ public class SelectOnMapActivity extends FragmentActivity implements
 			@Override
 			public void onMapReady(GoogleMap googleMap) {
 				map = googleMap;
-				map.setMyLocationEnabled(true);
+				if (ContextCompat.checkSelfPermission(thisActivity,
+						Manifest.permission_group.LOCATION) == PackageManager.PERMISSION_GRANTED) {
+					map.setMyLocationEnabled(true);
+				} else {
+					ActivityCompat.requestPermissions(thisActivity,
+							new String[]{Manifest.permission_group.LOCATION},
+							MY_PERMISSIONS_REQUEST_LOCATION);
+				}
 				map.setLocationSource(locationFinder);
 				locationFinder.addLocationListener(thisActivity);
 
@@ -85,6 +101,17 @@ public class SelectOnMapActivity extends FragmentActivity implements
 				map.setOnMarkerClickListener(thisActivity);
 			}
 		});
+	}
+
+	@Override
+	public void onRequestPermissionsResult(int requestCode,
+										   String permissions[], int[] grantResults) {
+		if (requestCode == MY_PERMISSIONS_REQUEST_LOCATION) {
+			if (ContextCompat.checkSelfPermission(this,
+					Manifest.permission_group.LOCATION) == PackageManager.PERMISSION_GRANTED) {
+				map.setMyLocationEnabled(true);
+			}
+		}
 	}
 
 	public void onInfoWindowClick(Marker marker) {

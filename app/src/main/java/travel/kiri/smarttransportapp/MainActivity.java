@@ -70,9 +70,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
 	/** Keeps track of place search request not completed. */
 	private int pendingPlaceSearch;
 
-	/** Stores history of textual searches, for ad customization. */
-	private ArrayList<String> adKeywords;
-
 	/**
 	 * Determines whether a dialog box has been cancelled or not. In such case
 	 * pending operations should not continue.
@@ -97,7 +94,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
 		locationFinder = LocationFinder.createInstance(this);
 		StatisticCounter.createInstance(this);
 		request = new CicaheumLedengProtocol(this, this);
-		adKeywords = new ArrayList<String>();
 
 		// Set up display metrics.
 		DisplayMetrics metrics = new DisplayMetrics();
@@ -203,11 +199,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
 					for (Point endpoint : endpointPoint) {
 						if (endpoint instanceof TextQueryPoint) {
 							final TextQueryPoint endpointCopy = (TextQueryPoint) endpoint;
-							if (!adKeywords.contains(endpoint
-									.getEditTextRepresentation())) {
-								adKeywords.add(endpoint
-										.getEditTextRepresentation());
-							}
 							String regionCode;
 							if (citySelected != null) {
 								regionCode = citySelected.code;
@@ -288,7 +279,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
 							if (selected != null) {
 								DirectionActivity.startThisActivity(context,
 										selected.start, selected.finish,
-										selected.adKeywords, selected.result);
+										selected.result);
 							}
 						}
 					});
@@ -368,11 +359,11 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
                                     history.add(new History.Item(start
                                             .getEditTextRepresentation(), finish
                                             .getEditTextRepresentation(),
-                                            adKeywords, jsonText));
+                                            jsonText));
                                     DirectionActivity.startThisActivity(activity,
                                             start.getEditTextRepresentation(),
                                             finish.getEditTextRepresentation(),
-                                            adKeywords, jsonText);
+                                            jsonText);
                                 } catch (RuntimeException re) {
                                     reportError(this, re);
                                 }
