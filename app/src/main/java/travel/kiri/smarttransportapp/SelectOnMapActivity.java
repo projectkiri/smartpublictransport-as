@@ -20,6 +20,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -64,21 +65,26 @@ public class SelectOnMapActivity extends FragmentActivity implements
 		endPointType = intent.getStringExtra(EXTRA_ENDPOINT_TYPE);
 
 		// Initialize Google Map
-		map = ((SupportMapFragment) getSupportFragmentManager()
-				.findFragmentById(R.id.map)).getMap();
-		if (map != null) {
-			map.setMyLocationEnabled(true);
-			map.setLocationSource(locationFinder);
-			locationFinder.addLocationListener(this);
+		final SelectOnMapActivity thisActivity = this;
+		SupportMapFragment mapFragment = (SupportMapFragment)getSupportFragmentManager().
+				findFragmentById(R.id.map);
+		mapFragment.getMapAsync(new OnMapReadyCallback() {
+			@Override
+			public void onMapReady(GoogleMap googleMap) {
+				map = googleMap;
+				map.setMyLocationEnabled(true);
+				map.setLocationSource(locationFinder);
+				locationFinder.addLocationListener(thisActivity);
 
-			map.moveCamera(CameraUpdateFactory.newLatLngZoom(
-					LocationUtilities.convertToLatLng(City.CITIES[1].location),
-					11));
-			map.getUiSettings().setZoomControlsEnabled(true);
-			map.setOnInfoWindowClickListener(this);
-			map.setOnMapClickListener(this);
-			map.setOnMarkerClickListener(this);
-		}
+				map.moveCamera(CameraUpdateFactory.newLatLngZoom(
+						LocationUtilities.convertToLatLng(City.CITIES[1].location),
+						11));
+				map.getUiSettings().setZoomControlsEnabled(true);
+				map.setOnInfoWindowClickListener(thisActivity);
+				map.setOnMapClickListener(thisActivity);
+				map.setOnMarkerClickListener(thisActivity);
+			}
+		});
 	}
 
 	public void onInfoWindowClick(Marker marker) {

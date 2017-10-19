@@ -56,6 +56,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
 import com.google.android.gms.maps.GoogleMap.OnCameraChangeListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
@@ -206,111 +207,117 @@ public class DirectionActivity extends AppCompatActivity implements
 		supportInvalidateOptionsMenu();
 
 		// Initialize map
-		map = ((SupportMapFragment) getSupportFragmentManager()
-				.findFragmentById(R.id.mapfragment)).getMap();
-		if (map != null) {
-			map.setMyLocationEnabled(true);
-			map.setLocationSource(locationFinder);
-			map.setInfoWindowAdapter(new SimpleInfoWindowAdapter(
-					LayoutInflater.from(this)));
-			map.setOnMarkerClickListener(this);
-			map.moveCamera(CameraUpdateFactory.newLatLngZoom(
-					LocationUtilities.convertToLatLng(City.CITIES[1].location),
-					11));
-			map.getUiSettings().setZoomControlsEnabled(true);
-
-			previousImageButton.setOnClickListener(this);
-			nextImageButton.setOnClickListener(this);
-
-			markers = new ArrayList<Marker>();
-
-			List<LatLng> allPoints = new ArrayList<LatLng>();
-			if (route.steps.size() == 1
-					&& route.steps.get(0).means
-							.equals(CicaheumLedengProtocol.PROTO_MEANS_NONE)) {
-				Toast toast = Toast.makeText(getApplicationContext(),
-						R.string.route_not_found, Toast.LENGTH_LONG);
-				toast.show();
-			}
-			int vehicleCount = 0;
-			for (int i = 0, iLength = route.steps.size(); i < iLength; i++) {
-				final Route.Step step = route.steps.get(i);
-				if (!step.means.equals(CicaheumLedengProtocol.PROTO_MEANS_NONE)) {
-					PolylineOptions polyline = new PolylineOptions();
-					if (step.means
-							.equals(CicaheumLedengProtocol.PROTO_MEANS_WALK)) {
-						polyline.color(COLOR_WALK);
-					} else {
-						polyline.color(COLOR_VEHICLE[(vehicleCount++) % COLOR_VEHICLE.length]);
-					}
-					polyline.width(DEFAULT_POLYLINE_WIDTH);
-					polyline.addAll(step.path);
-					map.addPolyline(polyline);
-				}
-				allPoints.addAll(step.path);
-				// Request for marker, starts with default marker.
-				MarkerOptions initialMarker = new MarkerOptions()
-						.position(step.path.get(0))
-						.title(String.format(
-								resources.getString(R.string.step), i + 1))
-						.snippet(step.description);
-				markers.add(map.addMarker(initialMarker));
-				final int markerIndex = i;
-				MarkerOptionsResponseHandler markerResponseHandler = new MarkerOptionsResponseHandler() {
-					@Override
-					public void markerOptionsReady(MarkerOptions markerOptions) {
-						// Replace marker with the one just downloaded.
-						markers.get(markerIndex).remove();
-						markers.set(markerIndex, map.addMarker(markerOptions));
-					}
-				};
-				// Create markers.
-				if (i == 0) {
-					request.getStartMarker(initialMarker, markerResponseHandler);
-				} else {
-					request.getStepMarker(step, initialMarker,
-							markerResponseHandler);
-				}
-				if (i == iLength - 1) {
-					initialMarker = new MarkerOptions()
-							.position(step.path.get(step.path.size() - 1))
-							.title(destination)
-							.snippet(
-									resources
-											.getString(R.string.you_have_reached));
-					markers.add(map.addMarker(initialMarker));
-					request.getFinishMarker(initialMarker,
-							new MarkerOptionsResponseHandler() {
-								@Override
-								public void markerOptionsReady(
-										MarkerOptions markerOptions) {
-									markers.get(markerIndex + 1).remove();
-									map.addMarker(markerOptions);
-								}
-							});
-					// Set last point for ad location
-					LatLng lastPoint = step.path.get(step.path.size() - 1);
-				}
-			}
-			// Set initial location: current location
-			Location location = locationFinder.getCurrentLocation();
-			if (location != null) {
+		final DirectionActivity thisActivity = this;
+		SupportMapFragment mapFragment = (SupportMapFragment)getSupportFragmentManager().
+				findFragmentById(R.id.map);
+		mapFragment.getMapAsync(new OnMapReadyCallback() {
+			@Override
+			public void onMapReady(GoogleMap googleMap) {
+				map = googleMap;
+				map.setMyLocationEnabled(true);
+				map.setLocationSource(locationFinder);
+				map.setInfoWindowAdapter(new SimpleInfoWindowAdapter(
+						LayoutInflater.from(thisActivity)));
+				map.setOnMarkerClickListener(thisActivity);
 				map.moveCamera(CameraUpdateFactory.newLatLngZoom(
-						LocationUtilities.convertToLatLng(location),
-						Constants.DEFAULT_ZOOM));
-			}
+						LocationUtilities.convertToLatLng(City.CITIES[1].location),
+						11));
+				map.getUiSettings().setZoomControlsEnabled(true);
 
-			allPointsBounds = LocationUtilities.detectBounds(allPoints);
+				previousImageButton.setOnClickListener(thisActivity);
+				nextImageButton.setOnClickListener(thisActivity);
 
-			map.setOnCameraChangeListener(new OnCameraChangeListener() {
-				@Override
-				public void onCameraChange(CameraPosition arg0) {
-					selectedMarker = null;
-					focusOnSelectedMarker(null);
-					map.setOnCameraChangeListener(null);
+				markers = new ArrayList<Marker>();
+
+				List<LatLng> allPoints = new ArrayList<LatLng>();
+				if (route.steps.size() == 1
+						&& route.steps.get(0).means
+						.equals(CicaheumLedengProtocol.PROTO_MEANS_NONE)) {
+					Toast toast = Toast.makeText(getApplicationContext(),
+							R.string.route_not_found, Toast.LENGTH_LONG);
+					toast.show();
 				}
-			});
-		}
+				int vehicleCount = 0;
+				for (int i = 0, iLength = route.steps.size(); i < iLength; i++) {
+					final Route.Step step = route.steps.get(i);
+					if (!step.means.equals(CicaheumLedengProtocol.PROTO_MEANS_NONE)) {
+						PolylineOptions polyline = new PolylineOptions();
+						if (step.means
+								.equals(CicaheumLedengProtocol.PROTO_MEANS_WALK)) {
+							polyline.color(COLOR_WALK);
+						} else {
+							polyline.color(COLOR_VEHICLE[(vehicleCount++) % COLOR_VEHICLE.length]);
+						}
+						polyline.width(DEFAULT_POLYLINE_WIDTH);
+						polyline.addAll(step.path);
+						map.addPolyline(polyline);
+					}
+					allPoints.addAll(step.path);
+					// Request for marker, starts with default marker.
+					MarkerOptions initialMarker = new MarkerOptions()
+							.position(step.path.get(0))
+							.title(String.format(
+									resources.getString(R.string.step), i + 1))
+							.snippet(step.description);
+					markers.add(map.addMarker(initialMarker));
+					final int markerIndex = i;
+					MarkerOptionsResponseHandler markerResponseHandler = new MarkerOptionsResponseHandler() {
+						@Override
+						public void markerOptionsReady(MarkerOptions markerOptions) {
+							// Replace marker with the one just downloaded.
+							markers.get(markerIndex).remove();
+							markers.set(markerIndex, map.addMarker(markerOptions));
+						}
+					};
+					// Create markers.
+					if (i == 0) {
+						request.getStartMarker(initialMarker, markerResponseHandler);
+					} else {
+						request.getStepMarker(step, initialMarker,
+								markerResponseHandler);
+					}
+					if (i == iLength - 1) {
+						initialMarker = new MarkerOptions()
+								.position(step.path.get(step.path.size() - 1))
+								.title(destination)
+								.snippet(
+										resources
+												.getString(R.string.you_have_reached));
+						markers.add(map.addMarker(initialMarker));
+						request.getFinishMarker(initialMarker,
+								new MarkerOptionsResponseHandler() {
+									@Override
+									public void markerOptionsReady(
+											MarkerOptions markerOptions) {
+										markers.get(markerIndex + 1).remove();
+										map.addMarker(markerOptions);
+									}
+								});
+						// Set last point for ad location
+						LatLng lastPoint = step.path.get(step.path.size() - 1);
+					}
+				}
+				// Set initial location: current location
+				Location location = locationFinder.getCurrentLocation();
+				if (location != null) {
+					map.moveCamera(CameraUpdateFactory.newLatLngZoom(
+							LocationUtilities.convertToLatLng(location),
+							Constants.DEFAULT_ZOOM));
+				}
+
+				allPointsBounds = LocationUtilities.detectBounds(allPoints);
+
+				map.setOnCameraChangeListener(new OnCameraChangeListener() {
+					@Override
+					public void onCameraChange(CameraPosition arg0) {
+						selectedMarker = null;
+						focusOnSelectedMarker(null);
+						map.setOnCameraChangeListener(null);
+					}
+				});
+			}
+		});
+
 	}
 
 	@Override
