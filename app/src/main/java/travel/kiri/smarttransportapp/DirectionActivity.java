@@ -213,7 +213,7 @@ public class DirectionActivity extends AppCompatActivity implements
 		// Initialize map
 		final DirectionActivity thisActivity = this;
 		SupportMapFragment mapFragment = (SupportMapFragment)getSupportFragmentManager().
-				findFragmentById(R.id.map);
+				findFragmentById(R.id.mapfragment);
 		mapFragment.getMapAsync(new OnMapReadyCallback() {
 			@Override
 			public void onMapReady(GoogleMap googleMap) {

@@ -177,8 +177,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
 	public void onRequestPermissionsResult(int requestCode,
 										   String permissions[], int[] grantResults) {
 		if (requestCode == MY_PERMISSIONS_REQUEST_LOCATION) {
-			if (ContextCompat.checkSelfPermission(this,
-					android.Manifest.permission_group.LOCATION) == PackageManager.PERMISSION_GRANTED) {
+			if (ContextCompat.checkSelfPermission(this,	Manifest.permission.ACCESS_FINE_LOCATION ) == PackageManager.PERMISSION_GRANTED ||
+					ContextCompat.checkSelfPermission(this,	Manifest.permission.ACCESS_COARSE_LOCATION ) == PackageManager.PERMISSION_GRANTED) {
 				locationFinder.startLocationDetection();
 			}
 		}

@@ -3,6 +3,7 @@ package travel.kiri.smarttransportapp.model;
 import java.util.LinkedList;
 import java.util.List;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -142,8 +143,8 @@ public class LocationFinder implements LocationSource {
 	 */
 	public boolean startLocationDetection() {
 
-		if (!listening && ContextCompat.checkSelfPermission(activity,
-				android.Manifest.permission_group.LOCATION) == PackageManager.PERMISSION_GRANTED) {
+		if (!listening && (ContextCompat.checkSelfPermission(activity,	Manifest.permission.ACCESS_FINE_LOCATION ) == PackageManager.PERMISSION_GRANTED ||
+				ContextCompat.checkSelfPermission(activity,	Manifest.permission.ACCESS_COARSE_LOCATION ) == PackageManager.PERMISSION_GRANTED)) {
 			// Register the listener with the Location Manager to receive location updates
 			try {
 				locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, UPDATE_INTERVAL, 0,
@@ -220,8 +221,8 @@ public class LocationFinder implements LocationSource {
 	}
 	
 	public Location getLastKnownLocation() {
-		if (ContextCompat.checkSelfPermission(activity,
-				android.Manifest.permission_group.LOCATION) == PackageManager.PERMISSION_GRANTED) {
+		if (ContextCompat.checkSelfPermission(activity,	Manifest.permission.ACCESS_FINE_LOCATION ) == PackageManager.PERMISSION_GRANTED ||
+				ContextCompat.checkSelfPermission(activity,	Manifest.permission.ACCESS_COARSE_LOCATION ) == PackageManager.PERMISSION_GRANTED) {
 			Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 			if (lastKnownLocation == null) {
 				lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
