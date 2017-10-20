@@ -13,11 +13,10 @@ It is recommended to fork to a new Github repo before cloning into your computer
 <resources>
     <string name="com.google.android.maps.v2.API_KEY" translatable="false"><!--TODO--></string>
     <string name="KIRI_APIKEY" translatable="false"><!--TODO--></string>
-    <string name="admob_id" translatable="false">ca-app-pub-3985184399339873/8346110548</string>
 </resources>
 ```
 
-Fill the `<--TODO-->`s with your [Google Server Key](https://developers.google.com/maps/documentation/android/start#step_4_get_a_google_maps_api_key) and [KIRI API](http://static.kiri.travel/developer/), respectively. You may also change the `admob_id` string value with your own admob id (otherwise users clicking ads in your app will generate revenue for me :smile:).
+Fill the `<--TODO-->`s with your [Google Server Key](https://developers.google.com/maps/documentation/android/start#step_4_get_a_google_maps_api_key) and [KIRI API](https://kiri.travel/dev), respectively.
 
 Contribution
 ------------
@@ -26,7 +25,7 @@ Contact @pascalalfadian prior to implementation if you want to improve this app,
 
 * bugfixes
 * code cleanup (more object oriented)
-* new features in line with the website http://kiri.travel
+* new features in line with the website https://kiri.travel
 
 ... to ...
 
