@@ -1,25 +1,16 @@
 package travel.kiri.smarttransportapp.model.protocol;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -40,6 +31,8 @@ import android.util.Log;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import javax.net.ssl.HttpsURLConnection;
 
 /**
  * This class is responsible for all HTTP requests.
@@ -108,19 +101,18 @@ public class CicaheumLedengProtocol {
 				// silent on error.
 			}
 		};
-		HttpParams params = new BasicHttpParams();
-		HttpConnectionParams.setConnectionTimeout(params, TIMEOUT);
-		HttpConnectionParams.setSoTimeout(params, TIMEOUT);
 	}
 
-	private static HttpClient createDefaultHttpClient() {
-		HttpParams params = new BasicHttpParams();
-		HttpConnectionParams.setConnectionTimeout(params, TIMEOUT);
-		HttpConnectionParams.setSoTimeout(params, TIMEOUT);
-		return new DefaultHttpClient(params);
+	private static HttpsURLConnection createDefaultHttpClient(String url) throws IOException {
+		HttpsURLConnection connection = (HttpsURLConnection)(new URL(url).openConnection());
+		connection.setReadTimeout(TIMEOUT);
+		connection.setConnectTimeout(TIMEOUT);
+		connection.setRequestMethod("GET");
+		connection.setDoInput(true);
+		return connection;
 	}
 
-	private class JSONAsyncTask extends AsyncTask<HttpPost, Object, String> {
+	private class JSONAsyncTask extends AsyncTask<HttpsURLConnection, Object, String> {
 		/** Errors saved during process in separate threads. */
 		protected Throwable savedError = null;
 
@@ -132,20 +124,16 @@ public class CicaheumLedengProtocol {
         }
 
 		@Override
-		protected String doInBackground(HttpPost... params) {
+		protected String doInBackground(HttpsURLConnection... params) {
 			try {
-				HttpResponse response = createDefaultHttpClient().execute(params[0]);
-				BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+				HttpsURLConnection connection = params[0];
+				BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 				StringBuilder stringBuilder = new StringBuilder();
 				String line;
 				while ((line = reader.readLine()) != null) {
 					stringBuilder.append(line);
 				}
-				reader.close();
 				return stringBuilder.toString();
-			} catch (ClientProtocolException cpe) {
-				savedError = cpe;
-				return null;
 			} catch (IOException ioe) {
 				savedError = ioe;
 				return null;
@@ -167,19 +155,18 @@ public class CicaheumLedengProtocol {
 	}
 
 	public void searchPlace(String query, String regionCode, final JSONResponseHandler handler) {
-		HttpPost post = new HttpPost(KIRI_HANDLE_URL);
-		List<NameValuePair> parameters = new ArrayList<NameValuePair>(2);
-		parameters.add(new BasicNameValuePair(PROTO_VERSION, PROTO_VERSION_2));
-		parameters.add(new BasicNameValuePair(PROTO_APIKEY, apiKey));
-		parameters.add(new BasicNameValuePair(PROTO_MODE, PROTO_MODE_SEARCHPLACE));
-		parameters.add(new BasicNameValuePair(PROTO_QUERYSTRING, query));
-		parameters.add(new BasicNameValuePair(PROTO_REGION, regionCode));
+		StringBuilder parameters = new StringBuilder(KIRI_HANDLE_URL);
+		parameters.append('?' + PROTO_VERSION + '=' + PROTO_VERSION_2);
+		parameters.append('&' + PROTO_APIKEY + '=' + apiKey);
+		parameters.append('&' + PROTO_MODE + '=' + PROTO_MODE_SEARCHPLACE);
+		parameters.append('&' + PROTO_QUERYSTRING + '=' + query);
+		parameters.append('&' + PROTO_REGION + '=' + regionCode);
         try {
-            post.setEntity(new UrlEncodedFormEntity(parameters));
+			HttpsURLConnection connection = createDefaultHttpClient(parameters.toString());
             JSONAsyncTask requester = new JSONAsyncTask(handler);
-            requester.execute(post);
-        } catch (UnsupportedEncodingException uee) {
-            errorReporter.reportError(this, uee);
+            requester.execute(connection);
+        } catch (IOException e) {
+            errorReporter.reportError(this, e);
         }
 	}
 
@@ -220,21 +207,20 @@ public class CicaheumLedengProtocol {
     }
 
 	public void findRoute(String locale, Location start, Location finish, final JSONResponseHandler handler) {
-		HttpPost post = new HttpPost(KIRI_HANDLE_URL);
-		List<NameValuePair> parameters = new ArrayList<NameValuePair>(2);
-		parameters.add(new BasicNameValuePair(PROTO_VERSION, PROTO_VERSION_2));
-		parameters.add(new BasicNameValuePair(PROTO_APIKEY, apiKey));
-		parameters.add(new BasicNameValuePair(PROTO_MODE, PROTO_MODE_FINDROUTE));
-		parameters.add(new BasicNameValuePair(PROTO_LOCALE, locale));
-		parameters.add(new BasicNameValuePair(PROTO_START, LocationUtilities.locationToString(start)));
-		parameters.add(new BasicNameValuePair(PROTO_FINISH, LocationUtilities.locationToString(finish)));
-		parameters.add(new BasicNameValuePair(PROTO_PRESENTATION, PROTO_PRESENTATION_DESKTOP));
+		StringBuilder parameters = new StringBuilder(KIRI_HANDLE_URL);
+		parameters.append('?' + PROTO_VERSION + '=' + PROTO_VERSION_2);
+		parameters.append('&' + PROTO_APIKEY + '=' + apiKey);
+		parameters.append('&' + PROTO_MODE + '=' + PROTO_MODE_FINDROUTE);
+		parameters.append('&' + PROTO_LOCALE + '=' + locale);
+		parameters.append('&' + PROTO_START + '=' + LocationUtilities.locationToString(start));
+		parameters.append('&' + PROTO_FINISH + '=' + LocationUtilities.locationToString(finish));
+		parameters.append('&' + PROTO_PRESENTATION + '=' + PROTO_PRESENTATION_DESKTOP);
         try {
-            post.setEntity(new UrlEncodedFormEntity(parameters));
+			HttpsURLConnection connection = createDefaultHttpClient(parameters.toString());
             JSONAsyncTask requester = new JSONAsyncTask(handler);
-            requester.execute(post);
-        } catch (UnsupportedEncodingException uee) {
-            errorReporter.reportError(this, uee);
+            requester.execute(connection);
+        } catch (Exception e) {
+            errorReporter.reportError(this, e);
         }
 	}
 
@@ -306,34 +292,39 @@ public class CicaheumLedengProtocol {
 		if (cache.isCached(url)) {
 			responseHandler.imageReceived(cache.getCachedVenue(url));
 		} else {
-			HttpGet get = new HttpGet(url);
-			new AsyncTask<HttpGet, Object, Bitmap>() {
-				protected Throwable savedError = null;
+			try {
+				HttpsURLConnection connection = createDefaultHttpClient(url);
+				new AsyncTask<HttpsURLConnection, Object, Bitmap>() {
+					protected Throwable savedError = null;
 
-				@Override
-				protected Bitmap doInBackground(HttpGet... params) {
-					try {
-						HttpResponse response = createDefaultHttpClient().execute(params[0]);
-						if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
-							throw new RuntimeException("Error while loading image.");
+					@Override
+					protected Bitmap doInBackground(HttpsURLConnection... params) {
+						try {
+							HttpsURLConnection connection = params[0];
+							connection.connect();
+							if (connection.getResponseCode() != 200) {
+								throw new RuntimeException("Error while loading image.");
+							}
+							return BitmapFactory.decodeStream(connection.getInputStream());
+						} catch (Exception e) {
+							savedError = e;
+							return null;
 						}
-						return BitmapFactory.decodeStream(response.getEntity().getContent());
-					} catch (Exception e) {
-						savedError = e;
-						return null;
 					}
-				}
 
-				@Override
-				protected void onPostExecute(Bitmap bitmap) {
-					if (bitmap == null) {
-						errorReporter.reportError(this, savedError);
-					} else {
-						responseHandler.imageReceived(bitmap);
-						cache.cacheBitmap(url, bitmap);
+					@Override
+					protected void onPostExecute(Bitmap bitmap) {
+						if (bitmap == null) {
+							errorReporter.reportError(this, savedError);
+						} else {
+							responseHandler.imageReceived(bitmap);
+							cache.cacheBitmap(url, bitmap);
+						}
 					}
-				}
-			}.execute(get);
+				}.execute(connection);
+			} catch (IOException e) {
+				errorReporter.reportError(this, e);
+			}
 		}
 	}
 
