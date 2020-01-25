@@ -981,8 +981,9 @@ public class SlidingUpPanelLayout extends ViewGroup {
 	protected boolean drawChild(Canvas canvas, View child, long drawingTime) {
 		final LayoutParams lp = (LayoutParams) child.getLayoutParams();
 		boolean result;
-		final int save = canvas.save(Canvas.CLIP_SAVE_FLAG);
-
+//		final int save = canvas.save(Canvas.CLIP_SAVE_FLAG);
+//		Untuk API 28++ diubah menjadi berikut:
+		final int save = canvas.saveLayer(0, 0, getWidth(), getHeight(), null);
 		boolean drawScrim = false;
 
 		if (mCanSlide && !lp.slideable && mSlideableView != null) {
