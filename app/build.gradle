@@ -8,7 +8,7 @@ android {
         applicationId "travel.kiri.smarttransportapp"
         minSdkVersion 14
         targetSdkVersion 29
-        multiDexEnabled true  //ADD THIS LINE
+//        multiDexEnabled true
     }
 
     buildTypes {
