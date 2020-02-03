@@ -70,6 +70,8 @@
             android:label="@string/about"
             android:screenOrientation="portrait" >
         </activity>
+
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
     </application>
 
 </manifest>
