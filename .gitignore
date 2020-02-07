@@ -6,3 +6,5 @@
 /build
 /app/build
 **/Thumbs.db
+/app/src/main/res/values/credentials.xml
+.idea/caches
