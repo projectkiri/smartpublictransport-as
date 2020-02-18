@@ -12,9 +12,9 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.v4.view.MotionEventCompat;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.widget.ViewDragHelper;
+import androidx.core.view.MotionEventCompat;
+import androidx.core.view.ViewCompat;
+import androidx.customview.widget.ViewDragHelper;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
@@ -981,7 +981,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
 	protected boolean drawChild(Canvas canvas, View child, long drawingTime) {
 		final LayoutParams lp = (LayoutParams) child.getLayoutParams();
 		boolean result;
-		final int save = canvas.save(Canvas.CLIP_SAVE_FLAG);
+		final int save = canvas.save();
 
 		boolean drawScrim = false;
 

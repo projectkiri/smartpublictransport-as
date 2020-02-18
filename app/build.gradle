@@ -1,13 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '26.0.2'
+    compileSdkVersion 29
+    buildToolsVersion '29.0.0'
 
     defaultConfig {
         applicationId "travel.kiri.smarttransportapp"
         minSdkVersion 14
-        targetSdkVersion 25
+        targetSdkVersion 29
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -19,6 +20,6 @@ android {
 }
 
 dependencies {
-    compile 'com.google.android.gms:play-services:+'
-    compile 'com.android.support:appcompat-v7:25.2.0'
+    implementation 'com.google.android.gms:play-services:+'
+    implementation 'androidx.appcompat:appcompat:1.0.0'
 }
