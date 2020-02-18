@@ -2,8 +2,11 @@
 /local.properties
 /.idea/workspace.xml
 /.idea/libraries
+.idea/caches
 .DS_Store
 /build
 /app/build
 **/Thumbs.db
 /app/src/main/res/values/credentials.xml
+android.keystore
+private_key.pepk
